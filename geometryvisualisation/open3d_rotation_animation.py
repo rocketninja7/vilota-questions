@@ -1,30 +1,8 @@
 import open3d as o3d
 import numpy as np
+import lineset_init
 
-points = [
-    [0, 0, 0],
-    [0, 0, 1],
-    [0, 1, 1],
-    [0, 1, 0],
-    [0.25, 0.5, 0.5],
-]
-points = [[i[0], i[1]+1, i[2]] for i in points]
-lines = [
-    [0, 1],
-    [1, 2],
-    [2, 3],
-    [3, 0],
-    [0, 4],
-    [1, 4],
-    [2, 4],
-    [3, 4],
-]
-colors = [[1, 0, 0] for i in range(len(lines))]
-line_set = o3d.geometry.LineSet(
-    points=o3d.utility.Vector3dVector(points),
-    lines=o3d.utility.Vector2iVector(lines),
-)
-line_set.colors = o3d.utility.Vector3dVector(colors)
+line_set = lineset_init.lineset_init()
 mesh_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(
     size=1, origin=[0, 0, 0])
 
@@ -34,9 +12,8 @@ vis.add_geometry(line_set)
 vis.add_geometry(mesh_frame)
 
 ctrl = vis.get_view_control()
-# ctrl.camera_local_translate(-2.5, -2, 0)
-ctrl.camera_local_translate(-2, 0, 0)
-# ctrl.camera_local_rotate(600, 0)
+ctrl.camera_local_rotate(300, 0)
+ctrl.camera_local_translate(-2, -2, 0)
 
 iterations = 100
 
